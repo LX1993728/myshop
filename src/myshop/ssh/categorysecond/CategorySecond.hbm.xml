@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="myshop.ssh.categorysecond.CategorySecond" table="categorysecond">
+		<!-- 配置id -->
+		<id name="csid" column="csid">
+			<generator class="native" />
+		</id>
+		<!-- 配置普通属性 -->
+		<property name="csname" column="csname" />
+
+		<!-- 配置关联关系(与一级分类的关系) -->
+		<many-to-one name="category" class="myshop.ssh.category.Category"
+			column="cid" />
+
+		<!-- 配置与商品的关联 -->
+		<set name="products" order-by="pid" lazy="false">
+			<key column="csid"></key>
+			<one-to-many class="myshop.ssh.product.Product" />
+		</set>
+	</class>
+</hibernate-mapping>   

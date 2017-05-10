@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="myshop.ssh.order.Order" table="orders">
+		<!-- 配置主键 -->
+		<id name="oid" column="oid">
+			<generator class="native" />
+		</id>
+
+		<!-- 配置普通属性 -->
+		<property name="total" column="total" />
+		<property name="ordertime" column="ordertime" />
+		<property name="state" column="state" />
+		<property name="addr" column="addr" />
+		<property name="phone" column="phone" />
+		<property name="name" column="name" />
+
+		<many-to-one name="user" column="uid" class="myshop.ssh.user.User" 
+			lazy="false" />
+
+		<!-- 配置订单所有订单项Set集合 -->
+		<set name="orderItems" cascade="save-update" lazy="false" order-by="itemid">
+			<key column="oid" />
+			<one-to-many class="myshop.ssh.order.OrderItem" />
+		</set>
+	</class>
+</hibernate-mapping>
